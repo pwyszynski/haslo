@@ -1,0 +1,47 @@
+#!/bin/bash
+# Uzywajac sha1sum tworzy łatwe do zapamietania haslo, ktore
+# bez problemu mozna przywrocic w przypadku zapomnienia.
+# Jeśli zajdzie taka potrzeba :
+# 1) Uruchom skrypt
+# 2) Wpisz hasło główne
+# 3) Podaj ten sam powód
+# 4) Podaj tę samą liczbę znaków
+# 5) Gotowe!
+
+
+
+GLOWNE=x
+POWTORZENIE=y
+
+clear;
+echo
+echo "UWAGA! Wpisywany tekst nie będzie się wyświetlał!"
+echo
+while [ $GLOWNE != $POWTORZENIE ] ; do
+
+	echo "Podaj główne hasło: "
+	read -s GLOWNE
+	clear;
+
+	echo "Ponownie wpisz główne hasło: "
+	read -s POWTORZENIE
+	clear;
+
+if [ $GLOWNE != $POWTORZENIE ] ; then
+	echo "Hasła do siebie nie pasują, wpisz ponownie." 1>&2
+fi
+done
+
+clear;
+echo "Podaj powód: "
+read -s POWOD
+clear;
+echo "Ile znaków ma mieć hasło?"
+read -s LZNAK
+clear;
+echo
+echo "Twoje przypadkowe hasło to:"
+echo $GLOWNE $POWOD | sha1sum | cut -c1-$LZNAK
+echo
+
+
